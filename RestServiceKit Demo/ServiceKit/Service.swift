@@ -27,17 +27,17 @@ class Service {
     
     func request<T>(for type: T.Type, with identifier: String? = nil, parameters: [URLQueryItem]? = nil, method: HTTPMethod = .get) -> URLRequest where T : ServiceModel {
         let paths = [type.serviceClassName, identifier].flatMap { $0 }
-        return request(with: paths, parameters: parameters)
+        return request(with: paths, parameters: parameters, method: method)
     }
     
     func request<T, U>(for type: T.Type, with identifier: String, relatedType: U.Type, relatedTypeIdentifier: String? = nil, parameters: [URLQueryItem]? = nil, method: HTTPMethod = .get) -> URLRequest where T : ServiceModel, U : ServiceModel {
         let paths = [type.serviceClassName, identifier, relatedType.serviceClassName, relatedTypeIdentifier].flatMap { $0 }
-        return request(with: paths, parameters: parameters)
+        return request(with: paths, parameters: parameters, method: method)
     }
     
-    private func request(with paths: [String], parameters: [URLQueryItem]? = nil, method: HTTPMethod = .get) -> URLRequest {
+    private func request(with paths: [String], parameters: [URLQueryItem]? = nil, method: HTTPMethod) -> URLRequest {
         guard let configuration = configuration else {
-            fatalError("unable to create query")
+            fatalError("unable to create query, service configuration not set")
         }
         
         var url = configuration.url
@@ -58,5 +58,3 @@ class Service {
     }
     
 }
-
-

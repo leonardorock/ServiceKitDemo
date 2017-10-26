@@ -22,12 +22,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func setupServiceConfiguration() {
         let apiURL = URL(string: "https://api.github.com")!
-        let configuration = ServiceConfiguration(url: apiURL, headers: [:], resultsKey: nil)
+        let configuration = ServiceConfiguration(url: apiURL, headers: [:])
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .iso8601
         let modelResponseHandler = ModelResponseHandler(decoder: decoder)
+        let modelRequestEncoder = ModelRequestJSONEncoder(encoder: encoder)
         Service.shared.configuration = configuration
         Service.shared.responseHandlerDelegate = modelResponseHandler
+        Service.shared.requestEncoderDelegate = modelRequestEncoder
     }
 
 }

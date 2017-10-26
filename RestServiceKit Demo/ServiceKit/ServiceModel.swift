@@ -10,45 +10,70 @@ import Foundation
 
 protocol ServiceModel: Codable {
     static var serviceClassName: String { get }
+    static var identifierKeyPath: AnyKeyPath? { get }
 }
 
 extension ServiceModel {
+    
+    static var identifierKeyPath: AnyKeyPath? {
+        return nil
+    }
+    
     static var query: Query<Self> {
         return Query<Self>()
     }
     
     private var session: URLSession {
-        return URLSession.shared
+        return URLSession(configuration: .default)
     }
     
-    func includeInBackground(response: ModelResponse<Self>) {
-        saveInBackground(method: .post, response: response)
-    }
-    
-    func updateInBackground(identifier: String, response: ModelResponse<Self>) {
-        saveInBackground(method: .put, identifier: identifier, response: response)
-    }
-    
-    func deleteInBackground(identigier: String, response: EmptyResponse) {
-        let service: Service = Service.shared
-        let request = service.request(for: Self.self, with: identigier, method: .delete)
-        session.dataTask(with: request) { (data, _, error) in
-            service.responseHandlerDelegate?.handleEmptyResponse(data: data, error: error, response: response)
+    func deleteInBackground(response: EmptyResponse) {
+        guard let identifier = serviceModelIdentifier(forValue: self) else {
+            fatalError("object without identifer key path")
         }
+        let service = Service.shared
+        let request = service.request(for: Self.self, with: identifier, method: .delete)
+        session.dataTask(with: request) { (data, urlResponse, error) in
+            service.responseHandlerDelegate?.handleEmptyResponse(data: data, urlResponse: urlResponse, error: error, response: response)
+        }.resume()
     }
     
-    private func saveInBackground(method: HTTPMethod, identifier: String? = nil, response: ModelResponse<Self>) {
+    func saveInBackground(response: ModelResponse<Self>) {
+        let identifier = serviceModelIdentifier(forValue: self)
         let service = Service.shared
+        let method: HTTPMethod = identifier != nil ? .put : .post
         var request = service.request(for: Self.self, with: identifier, method: method)
         do {
             request.httpBody = try service.requestEncoderDelegate?.encode(self)
-            session.dataTask(with: request) { (data, _, error) in
-                service.responseHandlerDelegate?.handleModelResponse(data: data, decoding: Self.self, error: error, response: response)
+            session.dataTask(with: request) { (data, urlResponse, error) in
+                service.responseHandlerDelegate?.handleModelResponse(data: data, urlResponse: urlResponse, decoding: Self.self, error: error, response: response)
             }.resume()
         } catch {
             response.failure(error)
         }
     }
     
+    func saveRelatedValueInBackground<T>(relatedValue: T, response: ModelResponse<T>) where T : ServiceModel {
+        guard let identifier = serviceModelIdentifier(forValue: self) else {
+            fatalError("root object without identifer key path")
+        }
+        let service = Service.shared
+        let relatedValueIdentifier = serviceModelIdentifier(forValue: relatedValue)
+        let method: HTTPMethod = relatedValueIdentifier != nil ? .put : .post
+        var request = service.request(for: Self.self, with: identifier, relatedType: T.self, relatedTypeIdentifier: relatedValueIdentifier, method: method)
+        do {
+            request.httpBody = try service.requestEncoderDelegate?.encode(relatedValue)
+            session.dataTask(with: request, completionHandler: { (data, urlResponse, error) in
+                service.responseHandlerDelegate?.handleModelResponse(data: data, urlResponse: urlResponse, decoding: T.self, error: error, response: response)
+            })
+        } catch {
+            response.failure(error)
+        }
+    }
+    
+    private func serviceModelIdentifier<T>(forValue value: T) -> String? where T : ServiceModel {
+        guard let keyPath = T.identifierKeyPath else { return nil }
+        return value[keyPath: keyPath] as? String
+    }
 }
 

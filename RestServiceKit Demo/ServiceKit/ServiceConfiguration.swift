@@ -9,7 +9,6 @@
 import Foundation
 
 struct ServiceConfiguration {
-    let url: URL
-    let headers: [String : String]?
-    let resultsKey: String?
+    var url: URL
+    var headers: [String : String]?
 }

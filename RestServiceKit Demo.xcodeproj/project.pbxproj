@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A71545101FA2176B002D7929 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71545071FA2176A002D7929 /* Service.swift */; };
+		A71545111FA2176B002D7929 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71545081FA2176A002D7929 /* NetworkError.swift */; };
+		A71545121FA2176B002D7929 /* ModelResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A71545091FA2176B002D7929 /* ModelResponseHandler.swift */; };
+		A71545131FA2176B002D7929 /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715450A1FA2176B002D7929 /* ServiceConfiguration.swift */; };
+		A71545141FA2176B002D7929 /* LoginCredentials.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715450B1FA2176B002D7929 /* LoginCredentials.swift */; };
+		A71545151FA2176B002D7929 /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715450C1FA2176B002D7929 /* ServiceModel.swift */; };
+		A71545161FA2176B002D7929 /* URLQueryParameterStringConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715450D1FA2176B002D7929 /* URLQueryParameterStringConvertible.swift */; };
+		A71545171FA2176B002D7929 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715450E1FA2176B002D7929 /* Query.swift */; };
+		A71545181FA2176B002D7929 /* ModelRequestJSONEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = A715450F1FA2176B002D7929 /* ModelRequestJSONEncoder.swift */; };
 		A75261D21F87FF84005799B9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75261D11F87FF84005799B9 /* AppDelegate.swift */; };
 		A75261D41F87FF84005799B9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75261D31F87FF84005799B9 /* ViewController.swift */; };
 		A75261D71F87FF84005799B9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A75261D51F87FF84005799B9 /* Main.storyboard */; };
@@ -14,12 +23,6 @@
 		A75261DC1F87FF84005799B9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A75261DA1F87FF84005799B9 /* LaunchScreen.storyboard */; };
 		A75261E71F87FF84005799B9 /* RestServiceKit_DemoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75261E61F87FF84005799B9 /* RestServiceKit_DemoTests.swift */; };
 		A75261F21F87FF84005799B9 /* RestServiceKit_DemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75261F11F87FF84005799B9 /* RestServiceKit_DemoUITests.swift */; };
-		A75262011F880122005799B9 /* ServiceModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75262001F880122005799B9 /* ServiceModel.swift */; };
-		A75262031F880146005799B9 /* Query.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75262021F880146005799B9 /* Query.swift */; };
-		A75262051F880171005799B9 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75262041F880171005799B9 /* Service.swift */; };
-		A75262071F88019C005799B9 /* ServiceConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75262061F88019C005799B9 /* ServiceConfiguration.swift */; };
-		A75635B01F8BE9EF001F1596 /* ModelResponseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75635AF1F8BE9EF001F1596 /* ModelResponseHandler.swift */; };
-		A75635B21F8BF190001F1596 /* ModelRequestEncoderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A75635B11F8BF190001F1596 /* ModelRequestEncoderDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +43,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A71545071FA2176A002D7929 /* Service.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		A71545081FA2176A002D7929 /* NetworkError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		A71545091FA2176B002D7929 /* ModelResponseHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelResponseHandler.swift; sourceTree = "<group>"; };
+		A715450A1FA2176B002D7929 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
+		A715450B1FA2176B002D7929 /* LoginCredentials.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginCredentials.swift; sourceTree = "<group>"; };
+		A715450C1FA2176B002D7929 /* ServiceModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
+		A715450D1FA2176B002D7929 /* URLQueryParameterStringConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLQueryParameterStringConvertible.swift; sourceTree = "<group>"; };
+		A715450E1FA2176B002D7929 /* Query.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
+		A715450F1FA2176B002D7929 /* ModelRequestJSONEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelRequestJSONEncoder.swift; sourceTree = "<group>"; };
 		A75261CE1F87FF84005799B9 /* RestServiceKit Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RestServiceKit Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A75261D11F87FF84005799B9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A75261D31F87FF84005799B9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -53,12 +65,6 @@
 		A75261ED1F87FF84005799B9 /* RestServiceKit DemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "RestServiceKit DemoUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A75261F11F87FF84005799B9 /* RestServiceKit_DemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestServiceKit_DemoUITests.swift; sourceTree = "<group>"; };
 		A75261F31F87FF84005799B9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A75262001F880122005799B9 /* ServiceModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceModel.swift; sourceTree = "<group>"; };
-		A75262021F880146005799B9 /* Query.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Query.swift; sourceTree = "<group>"; };
-		A75262041F880171005799B9 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		A75262061F88019C005799B9 /* ServiceConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceConfiguration.swift; sourceTree = "<group>"; };
-		A75635AF1F8BE9EF001F1596 /* ModelResponseHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelResponseHandler.swift; sourceTree = "<group>"; };
-		A75635B11F8BF190001F1596 /* ModelRequestEncoderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelRequestEncoderDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,12 +147,15 @@
 		A75261FF1F87FF8F005799B9 /* ServiceKit */ = {
 			isa = PBXGroup;
 			children = (
-				A75262021F880146005799B9 /* Query.swift */,
-				A75262041F880171005799B9 /* Service.swift */,
-				A75262061F88019C005799B9 /* ServiceConfiguration.swift */,
-				A75635AF1F8BE9EF001F1596 /* ModelResponseHandler.swift */,
-				A75635B11F8BF190001F1596 /* ModelRequestEncoderDelegate.swift */,
-				A75262001F880122005799B9 /* ServiceModel.swift */,
+				A715450B1FA2176B002D7929 /* LoginCredentials.swift */,
+				A715450F1FA2176B002D7929 /* ModelRequestJSONEncoder.swift */,
+				A71545091FA2176B002D7929 /* ModelResponseHandler.swift */,
+				A71545081FA2176A002D7929 /* NetworkError.swift */,
+				A715450E1FA2176B002D7929 /* Query.swift */,
+				A71545071FA2176A002D7929 /* Service.swift */,
+				A715450A1FA2176B002D7929 /* ServiceConfiguration.swift */,
+				A715450C1FA2176B002D7929 /* ServiceModel.swift */,
+				A715450D1FA2176B002D7929 /* URLQueryParameterStringConvertible.swift */,
 			);
 			path = ServiceKit;
 			sourceTree = "<group>";
@@ -285,14 +294,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A75262031F880146005799B9 /* Query.swift in Sources */,
+				A71545181FA2176B002D7929 /* ModelRequestJSONEncoder.swift in Sources */,
+				A71545171FA2176B002D7929 /* Query.swift in Sources */,
+				A71545161FA2176B002D7929 /* URLQueryParameterStringConvertible.swift in Sources */,
+				A71545121FA2176B002D7929 /* ModelResponseHandler.swift in Sources */,
 				A75261D41F87FF84005799B9 /* ViewController.swift in Sources */,
-				A75262071F88019C005799B9 /* ServiceConfiguration.swift in Sources */,
-				A75635B21F8BF190001F1596 /* ModelRequestEncoderDelegate.swift in Sources */,
-				A75262051F880171005799B9 /* Service.swift in Sources */,
-				A75635B01F8BE9EF001F1596 /* ModelResponseHandler.swift in Sources */,
-				A75262011F880122005799B9 /* ServiceModel.swift in Sources */,
+				A71545131FA2176B002D7929 /* ServiceConfiguration.swift in Sources */,
+				A71545141FA2176B002D7929 /* LoginCredentials.swift in Sources */,
+				A71545111FA2176B002D7929 /* NetworkError.swift in Sources */,
 				A75261D21F87FF84005799B9 /* AppDelegate.swift in Sources */,
+				A71545101FA2176B002D7929 /* Service.swift in Sources */,
+				A71545151FA2176B002D7929 /* ServiceModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

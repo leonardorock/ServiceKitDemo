@@ -9,30 +9,36 @@
 import Foundation
 
 protocol ModelResponseHandlerDelegate {
-    func handleModelResponse<T>(data: Data?, decoding: T.Type, error: Error?, response: ModelResponse<T>) where T : Codable
-    func handleEmptyResponse(data: Data?, error: Error?, response: EmptyResponse)
+    func handleModelResponse<T>(data: Data?, urlResponse: URLResponse?, decoding: T.Type, error: Error?, response: ModelResponse<T>) where T : Codable
+    func handleEmptyResponse(data: Data?, urlResponse: URLResponse?, error: Error?, response: EmptyResponse)
 }
 
 class ModelResponseHandler: ModelResponseHandlerDelegate {
     
-    private let decoder: JSONDecoder
+    let decoder: JSONDecoder
+    
+    var resultsKey: String?
     
     init(decoder: JSONDecoder) {
         self.decoder = decoder
     }
     
-    func handleModelResponse<T>(data: Data?, decoding: T.Type, error: Error?, response: ModelResponse<T>) where T : Codable {
-        let result = self.resolveResponse(data: data, decoding: decoding, error: error)
-        self.buildResponse(response: response, result: result)
+    func handleModelResponse<T>(data: Data?, urlResponse: URLResponse?, decoding: T.Type, error: Error?, response: ModelResponse<T>) where T : Codable {
+        DispatchQueue.main.async {
+            let result = self.resolveResponse(data: data, urlResponse: urlResponse, decoding: decoding, error: error)
+            self.buildResponse(response: response, result: result)
+        }
     }
     
-    func handleEmptyResponse(data: Data?, error: Error?, response: EmptyResponse) {
-        if let error = error {
-            response.failure(error)
-        } else {
-            response.success()
+    func handleEmptyResponse(data: Data?, urlResponse: URLResponse?, error: Error?, response: EmptyResponse) {
+        DispatchQueue.main.async {
+            if let error = error {
+                response.failure(error)
+            } else {
+                response.success()
+            }
+            response.completion()
         }
-        response.completion()
     }
     
     private func buildResponse<T>(response: ModelResponse<T>, result: (parsed: T?, error: Error?)) {
@@ -44,21 +50,25 @@ class ModelResponseHandler: ModelResponseHandlerDelegate {
         response.completion()
     }
     
-    private func resolveResponse<T>(data: Data?, decoding type: T.Type, error: Error?) -> (parsed: T?, error: Error?) where T : Codable {
+    private func resolveResponse<T>(data: Data?, urlResponse: URLResponse?, decoding type: T.Type, error: Error?) -> (parsed: T?, error: Error?) where T : Codable {
         var result: T? = nil
         var error: Error? = error
-        data.flatMap { data in
-            do {
-                if let resultsKey = Service.shared.configuration?.resultsKey,
-                    let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
-                    let wrappedData = json[resultsKey] {
-                    let newData = try JSONSerialization.data(withJSONObject: wrappedData, options: .sortedKeys)
-                    result = try decoder.decode(type, from: newData)
-                } else {
-                    result = try decoder.decode(type, from: data)
+        if let urlResponse = urlResponse as? HTTPURLResponse {
+            if (200..<300).contains(urlResponse.statusCode), let data = data {
+                do {
+                    if let resultsKey = resultsKey,
+                        let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String : Any],
+                        let wrappedData = json[resultsKey] {
+                        let newData = try JSONSerialization.data(withJSONObject: wrappedData, options: [])
+                        result = try decoder.decode(type, from: newData)
+                    } else {
+                        result = try decoder.decode(type, from: data)
+                    }
+                } catch let e {
+                    error = e
                 }
-            } catch let e {
-                error = e
+            } else {
+                error = NetworkError(statusCode: urlResponse.statusCode, data: data)
             }
         }
         return (result, error)
